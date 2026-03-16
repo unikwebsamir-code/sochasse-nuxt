@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  sochasse:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sochasse-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - sochasse-data:/app/sochasse.db
+      - sochasse-images:/app/public/images
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  sochasse-data:
+  sochasse-images:
+
+version: "3"
