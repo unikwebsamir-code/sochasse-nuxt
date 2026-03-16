@@ -1,7 +1,15 @@
 import Database from 'better-sqlite3'
 import path from 'path'
+import fs from 'fs'
 
-const dbPath = path.join(process.cwd(), 'sochasse.db')
+const dataDir = path.join(process.cwd(), 'data')
+
+// create data folder if it doesn't exist
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true })
+}
+
+const dbPath = path.join(dataDir, 'sochasse.db')
 const db = new Database(dbPath)
 
 db.exec(`

@@ -9,7 +9,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - sochasse-data:/app/sochasse.db
+      - sochasse-data:/app/data
       - sochasse-images:/app/public/images
     environment:
       - NODE_ENV=production
